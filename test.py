@@ -12,10 +12,11 @@ head = {
 }
 
 # Create User
-user = requests.post(f'{url}/users', json=data, headers=head)
+user = requests.post(f'{url}/users', json=json.dumps(data), headers=head)
 print("For Signup", user.text)
 
 # Login
 
-# user = requests.post(f"{url}/login", data=pre.update(user.json()))
+data.update(user.json())
+# user = requests.post(f"{url}/login", data=json.dumps(data))
 # print("For Login", user.json())
