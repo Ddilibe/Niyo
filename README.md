@@ -32,7 +32,7 @@ Follow the instructions here to run the API
 ```bash
 
 # Getting the API Software
-git clone https://
+git clone https://github.com/Ddilibe/Niyo
 
 
 # To setup a virtual environment
