@@ -10,6 +10,24 @@ import os
 Base = declarative_base()
 
 class User(Base):
+    """
+    Represents a User in the database.
+
+    Attributes:
+    user_id (str): Primary key identifying the user.
+    username (str): Username of the user (max length 18 characters, cannot be null).
+    email_address (str): Email address of the user (max length 255 characters, cannot be null).
+    password_hash (str): Hashed password of the user (max length 255 characters, cannot be null).
+    created_on (DateTime): Date and time when the user record was created (defaults to current datetime).
+    updated_on (DateTime): Date and time when the user record was last updated (defaults to current datetime, updates on change).
+    task (str): Foreign key referencing the 'task_id' in the 'Task' table.
+
+    Methods:
+    password (property): Raises an AttributeError since password should not be read directly.
+    password.setter: Sets the password_hash attribute using Werkzeug's generate_password_hash function.
+    verify_password(password: str) -> bool: Verifies if the provided password matches the stored password_hash.
+    get_user_attributes() -> dict: Returns a dictionary of user attributes including username, email, created_on, updated_on, and user_id.
+    """
 
     __tablename__ = "User"
     user_id = Column(String(225), primary_key=True)
@@ -39,6 +57,19 @@ class User(Base):
     
 
 class Task(Base):
+    """
+    Represents a Task in the database.
+
+    Attributes:
+    task_id (str): Primary key identifying the task.
+    title (str): Title of the task (max length 128 characters, cannot be null).
+    body (Text): Body or description of the task.
+    created_on (DateTime): Date and time when the task record was created (defaults to current datetime).
+    user (relationship): Relationship to the 'User' table, indicating which user created the task.
+
+    Methods:
+    get_task_attributes() -> dict: Returns a dictionary of task attributes including title, body, task_id, created_on, and the username of the associated user.
+    """
 
     __tablename__ = "Task"
     task_id = Column(String(225), primary_key=True)
